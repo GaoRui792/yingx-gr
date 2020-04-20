@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.gr.dao.CategoryDAO">
+
+    <resultMap id="categoryMap" type="com.baizhi.gr.vo.CategoryVo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="cate_name" property="cateName" jdbcType="VARCHAR"/>
+        <result column="levels" property="levels" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <collection property="categoryList" ofType="com.baizhi.gr.entity.Category">
+            <id column="cid" property="id" jdbcType="VARCHAR"/>
+            <result column="ccateName" property="cateName" jdbcType="VARCHAR"/>
+            <result column="clevels" property="levels" jdbcType="INTEGER"/>
+            <result column="cparentId" property="parentId" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAllCategory" resultMap="categoryMap">
+
+        select
+        c1.id,c1.cate_name,c1.levels,c1.parent_id,
+        c2.id cid,c2.cate_name ccateName,c2.levels clevels,c2.parent_id cparentId
+        from yx_category c1
+        join yx_category c2 on c1.id = c2.parent_id
+
+    </select>
+
+</mapper>

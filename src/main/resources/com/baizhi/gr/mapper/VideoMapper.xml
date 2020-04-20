@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.gr.dao.VideoDAO">
+
+    <select id="selectVideoAndCateName" resultType="com.baizhi.gr.vo.VideoCateNameVo">
+        select
+        v.id,v.title videoTitle,v.cover cover,v.path path,
+        v.publish_date uploadTime,v.brief description,c.cate_name cateName
+        from yx_video v
+        left join yx_category c on v.category_id = c.id
+    </select>
+
+    <select id="selectVideoByTitle" resultType="com.baizhi.gr.vo.VideoCateUserVo">
+        select
+        v.id,v.title videoTitle,v.cover cover,v.path path,
+        v.publish_date uploadTime,v.brief description,
+        v.category_id categoryId,v.user_id userId,
+        c.cate_name cateName,u.username userName
+        from yx_video v
+        left join yx_category c on v.category_id = c.id
+        left join yx_user u on v.user_id = u.id
+        where v.title like concat('%',#{title},'%')
+    </select>
+
+
+</mapper>
