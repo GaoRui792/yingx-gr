@@ -19,8 +19,8 @@ public class AliyunUploadUtil {
     *   accessKeySecret 阿里云密钥的Secret
     * */
     private static String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-    private static String accessKeyId = "LTAI4FjTNK5cUF4UA5nRFbPQ";
-    private static String accessKeySecret = "Sp1QzAN7Ki2Beb9IissTiCdg3AE9Yl";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
 
 
     /*
