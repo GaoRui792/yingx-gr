@@ -52,7 +52,7 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    @CUD
+    @CUD(message = "类别的增删改方法")
     public Map<String,String> cudCategory(String oper, Category category) {
         HashMap<String,String> map = null;
         if ("add".equals(oper)){

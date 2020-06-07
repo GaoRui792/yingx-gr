@@ -52,7 +52,7 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    @CUD
+    @CUD(message = "用户增删改")
     public String CUDUser(User user,String oper) {
         log.info("CUDUser.user ==> {}",user);
         String uid = null;

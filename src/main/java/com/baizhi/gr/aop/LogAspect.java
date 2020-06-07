@@ -1,10 +1,13 @@
 package com.baizhi.gr.aop;
 
+import com.baizhi.gr.annotation.CUD;
 import com.baizhi.gr.entity.Admin;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.HashOperations;
@@ -42,11 +45,15 @@ public class LogAspect {
         //获取类的全限定名
         String className = joinPoint.getTarget().getClass().getName();
         //操作的方法名
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        CUD cud = signature.getMethod().getAnnotation(CUD.class);
+        String message1 = cud.message();
+        System.out.println("message1 = " + message1);
         String methodName = joinPoint.getSignature().getName();
         //获取参数列表
         Object[] args = joinPoint.getArgs();
         Object proceed = null;
-        String message = null;
+        String message;
         try {
             proceed = joinPoint.proceed();
             message = "success";

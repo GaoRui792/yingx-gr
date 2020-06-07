@@ -6,10 +6,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,6 +21,9 @@ public class AdminTest {
 
     @Autowired
     private AdminDAO adminDAO;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     @Test
@@ -30,4 +37,17 @@ public class AdminTest {
         admins.forEach(admin -> System.out.println("admin = " + admin));
 
     }
+
+    @Test
+    public void testRedis(){
+        HashOperations hashOperations = redisTemplate.opsForHash();
+        //hashOperations.put("test","time","123");
+        redisTemplate.expire("test",30, TimeUnit.DAYS);
+        /*List test = hashOperations.values("test");
+        System.out.println("test = " + test);*/
+        Long test = redisTemplate.getExpire("test");
+        System.out.println("test = " + test);
+
+    }
+
 }

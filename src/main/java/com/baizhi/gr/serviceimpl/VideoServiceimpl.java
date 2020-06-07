@@ -66,7 +66,7 @@ public class VideoServiceimpl implements VideoService {
     }
 
     @Override
-    @CUD
+    @CUD(message = "视频增删改")
     public String CUDVideo(Video video, String oper) {
         log.info("CUDVideo.oper ==> {}",oper);
         String uid = null;
